@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@rocketseat/eslint-config": "2.1.0",
     "@types/node": "20.4.9",
     "tsup": "7.2.0",
     "tsx": "3.12.7",
