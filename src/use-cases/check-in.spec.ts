@@ -1,4 +1,3 @@
-import { GymsRepository } from './../repositories/gyms-repository'
 import { checkInsRepository } from './../repositories/check-ins-repository'
 import { InMemoryCheckInsRepository } from '@/repositories/in-memory/in-memory-check-ins-repository'
 import { describe, it, beforeEach, expect, vi, afterEach } from 'vitest'
@@ -21,8 +20,8 @@ describe('Check-in Use Case', () => {
       title: 'JavaScript Gym',
       description: '',
       phone: '',
-      latitude: new Decimal(0),
-      longitude: new Decimal(0),
+      latitude: new Decimal(35.8709495),
+      longitude: new Decimal(137.9809247),
     })
 
     vi.useFakeTimers()
@@ -83,5 +82,25 @@ describe('Check-in Use Case', () => {
     })
 
     expect(checkIn.id).toEqual(expect.any(String))
+  })
+
+  it('should not be able to check in on distant gym', async () => {
+    gymsRepository.items.push({
+      id: 'gym-02',
+      title: 'JavaScript Gym',
+      description: '',
+      phone: '',
+      latitude: new Decimal(35.9046205),
+      longitude: new Decimal(137.9888759),
+    })
+
+    await expect(() =>
+      sut.execute({
+        gymId: 'gym-02',
+        userId: 'user-01',
+        userLatitude: 35.8709495,
+        userLongitude: 137.9809247,
+      }),
+    ).rejects.toBeInstanceOf(Error)
   })
 })
