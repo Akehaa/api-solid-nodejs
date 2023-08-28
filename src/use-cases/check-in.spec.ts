@@ -1,4 +1,3 @@
-import { checkInsRepository } from './../repositories/check-ins-repository'
 import { InMemoryCheckInsRepository } from '@/repositories/in-memory/in-memory-check-ins-repository'
 import { describe, it, beforeEach, expect, vi, afterEach } from 'vitest'
 import { CheckInUseCase } from './check-in'
